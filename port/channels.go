@@ -5,7 +5,7 @@ import "encoding/json"
 import "time"
 import "strings"
 
-const channelsUrl = "http://www.port.hu/pls/w/tv_api.init?i_page_id=1"
+const channelsUrl = "http://port.hu/tvapi/init?i_page_id=1"
 
 type PortInitResponse struct {
 	Date time.Time `json:"date"`
@@ -15,13 +15,13 @@ type PortInitResponse struct {
 		IsNotificationAvailable bool `json:"isNotificationAvailable"`
 	} `json:"services"`
 	Channels []struct {
-		ID int `json:"id"`
+		ID string `json:"id"`
 		Article string `json:"article"`
 		Name string `json:"name"`
 		Link string `json:"link"`
 		Logo string `json:"logo"`
 		GroupName string `json:"groupName"`
-		GroupID int `json:"groupId"`
+		GroupID string `json:"groupId"`
 		SponzorationColor interface{} `json:"sponzoration_color"`
 		Language string `json:"language"`
 		Address string `json:"address"`
@@ -34,11 +34,11 @@ type PortInitResponse struct {
 	Favorite interface{} `json:"favorite"`
 	Days []int `json:"days"`
 	ShowType []struct {
-		ID int `json:"id"`
+		ID string `json:"id"`
 		Name string `json:"name"`
 	} `json:"showType"`
-	AgeLimit []struct {
-		ID int `json:"id"`
+/*	AgeLimit []struct {
+		ID string `json:"id"`
 		Name string `json:"name"`
 		Short string `json:"short"`
 		Shorter string `json:"shorter"`
@@ -46,9 +46,9 @@ type PortInitResponse struct {
 		PictogramURLMobile string `json:"pictogram_url_mobile"`
 		DvbRating int `json:"dvb_rating"`
 		VideoFlashURL string `json:"video_flash_url"`
-	} `json:"ageLimit"`
+	} `json:"ageLimit"`*/
 	SoundQuality []struct {
-		ID int `json:"id"`
+		ID string `json:"id"`
 		Name string `json:"name"`
 		Short string `json:"short"`
 	} `json:"soundQuality"`
@@ -60,10 +60,10 @@ type Services struct {
 	isPersonalSettingsAvailable bool
 }
 
-func GetChannelIds(channels []string) []int {
+func GetChannelIds(channels []string) []string {
 	init := GetPortInit()
 
-    var result []int
+    var result []string
     for _,v := range init.Channels {
     	if (InArray(v.Name, channels)) {
     		result = append(result, v.ID)
