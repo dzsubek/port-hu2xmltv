@@ -37,16 +37,6 @@ type PortInitResponse struct {
 		ID string `json:"id"`
 		Name string `json:"name"`
 	} `json:"showType"`
-/*	AgeLimit []struct {
-		ID string `json:"id"`
-		Name string `json:"name"`
-		Short string `json:"short"`
-		Shorter string `json:"shorter"`
-		PictogramURL string `json:"pictogram_url"`
-		PictogramURLMobile string `json:"pictogram_url_mobile"`
-		DvbRating int `json:"dvb_rating"`
-		VideoFlashURL string `json:"video_flash_url"`
-	} `json:"ageLimit"`*/
 	SoundQuality []struct {
 		ID string `json:"id"`
 		Name string `json:"name"`
