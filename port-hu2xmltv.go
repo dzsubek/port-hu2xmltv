@@ -4,8 +4,8 @@ import (
 	"encoding/xml";
 	"os";
 	"io";
-	"./port"
 	"github.com/tv42/slug"
+	"port-hu2xmltv/port"
 )
 
 func main() {
