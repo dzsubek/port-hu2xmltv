@@ -4,8 +4,49 @@ import "net/http"
 import "encoding/json"
 import "time"
 import "strings"
+import "fmt"
 
 const channelsUrl = "http://port.hu/tvapi/init?i_page_id=1"
+
+type Client struct {
+	client *http.Client
+	baseURL string
+}
+
+type ClientI interface {
+	GetChannelList() PortInitResponse
+}
+
+func NewClient(httpClient *http.Client) *Client {
+	if httpClient == nil {
+		httpClient = http.DefaultClient
+	}
+
+	c := &Client{client: httpClient, baseURL: channelsUrl}
+	return c
+}
+
+func (c *Client) GetChannelList() PortInitResponse {
+	response, err := c.client.Get(c.baseURL)
+	if err != nil {
+		panic(err)
+	}
+	defer response.Body.Close()
+
+	var init PortInitResponse
+	err = json.NewDecoder(response.Body).Decode(&init)
+	if err != nil {
+		panic(err)
+	}
+
+	return init
+}
+
+func ProbaClient()  {
+	pc := NewClient(nil)
+	list := pc.GetChannelList()
+	fmt.Println(list)
+}
 
 type PortInitResponse struct {
 	Date time.Time `json:"date"`
