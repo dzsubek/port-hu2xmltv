@@ -49,7 +49,7 @@ type PortChannelDetails struct {
 				ExtraLink interface{} `json:"extra_link"`
 			} `json:"outer_links"`
 			Restriction struct {
-				AgeLimit string `json:"age_limit"`
+				AgeLimit int `json:"age_limit"`
 				Category string `json:"category"`
 			} `json:"restriction"`
 			Type string `json:"type"`
